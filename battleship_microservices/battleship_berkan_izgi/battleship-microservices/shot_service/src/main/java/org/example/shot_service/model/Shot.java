@@ -12,15 +12,17 @@ public class Shot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private int x;
     private int y;
     private boolean hit;
 
     private Long playerId;
-    private Long gameId;
 
     public Shot() {}
-    public Shot(int x, int y, boolean hit) {
+
+    public Shot(Long playerId, int x, int y, boolean hit) {
+        this.playerId = playerId;
         this.x = x;
         this.y = y;
         this.hit = hit;
@@ -65,11 +67,4 @@ public class Shot {
         this.playerId = playerId;
     }
 
-    public Long getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Long gameId) {
-        this.gameId = gameId;
-    }
 }

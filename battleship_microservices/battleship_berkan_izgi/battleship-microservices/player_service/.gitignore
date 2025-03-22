@@ -30,3 +30,6 @@ nbdist/
 
 # Logfiles
 *.log
+
+buildOutputCleanup.lock
+
