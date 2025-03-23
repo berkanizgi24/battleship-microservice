@@ -37,4 +37,13 @@ public class GameService {
         ResponseEntity<PlayerDTO[]> response = restTemplate.getForEntity(playerServiceUrl, PlayerDTO[].class);
         return List.of(response.getBody());
     }
+
+    public Boolean canAddPlayer(Long gameId){
+        Optional<Game> game = gameRepository.findById(gameId);
+        String playerServiceUrl = "http://localhost:8082/players?gameId=" + gameId;
+        ResponseEntity<PlayerDTO[]> response = restTemplate.getForEntity(playerServiceUrl, PlayerDTO[].class);
+        PlayerDTO[] players = response.getBody();
+
+        return players == null || players.length < 2;
+    }
 }

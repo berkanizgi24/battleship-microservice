@@ -27,12 +27,20 @@ public class PlayerService {
         try{
             Boolean gameExists = restTemplate.getForObject(gameServiceUrl, Boolean.class);
 
-    if (Boolean.FALSE.equals(gameExists)){
-    throw new IllegalArgumentException("Game mit Id:" + gameId + "existiert leider nicht :/");
+           if (Boolean.FALSE.equals(gameExists)){
+         throw new IllegalArgumentException("Game mit Id:" + gameId + "existiert leider nicht :/");
             }
         } catch (Exception e){
             throw new IllegalArgumentException("Game mit Id" + gameId + "existiert nicht");
         }
+
+        String checkUrl = "http://localhost:8081/games/" + gameId + "/canAddPlayer";
+        Boolean canAddPlayer = restTemplate.getForObject(checkUrl, Boolean.class);
+
+        if (Boolean.FALSE.equals(canAddPlayer)){
+            throw new IllegalArgumentException("Dieses Spiel hat schon 2 Spieler :(");
+        }
+
         Player player = new Player();
         player.setGameId(gameId);
         player.setName(name);

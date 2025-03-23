@@ -39,5 +39,12 @@ public class GameController {
     public ResponseEntity<List<PlayerDTO>> getPlayersInGame(@PathVariable Long gameId){
         List<PlayerDTO> players = gameService.getPlayersInGame(gameId);
         return ResponseEntity.ok(players);
-}
+    }
+
+    @GetMapping("/{gameId}/canAddPlayer")
+    public ResponseEntity<Boolean> canAddPlayer(@PathVariable Long gameId){
+        boolean result = gameService.canAddPlayer(gameId);
+        return ResponseEntity.ok(result);
+    }
+
 }
